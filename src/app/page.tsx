@@ -1,6 +1,25 @@
 import Image from 'next/image'
+import NextAuth from "next-auth";
 
-export default function Home() {
+const authOptions = {
+  providers: [
+    // CognitoProvider({
+    //
+    //   clientId: process.env.COGNITO_CLIENT_ID as string,
+    //   clientSecret: process.env.COGNITO_CLIENT_SECRET as string,
+    //   issuer: process.env.COGNITO_ISSUER,
+    // }),
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_CLIENT_ID as string,
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+    // }),
+  ],
+  secret: process.env.NEXTAUTH_SECRET as string,
+}
+
+export default async function Home() {
+  const { auth } = NextAuth(authOptions);
+  const session = await auth()
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
